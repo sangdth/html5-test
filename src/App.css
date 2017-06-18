@@ -1,0 +1,44 @@
+.html5-test {
+  color: #909090;
+  width: 912px;
+}
+
+.header {
+  background-color: #ADB5BC;
+  height: 150px;
+  padding: 32px;
+  color: white;
+}
+
+.header .logo {
+  height: 32px;
+  float: left;
+  margin-right: 10px;
+}
+
+.header h1 {
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+.add-form, .table-list {
+  background-color: #FFF;
+  padding-top: 16px;
+}
+
+.btn-add-new {
+  background-color: #07F;
+  border: none;
+  color: #FFF;
+  border-radius: 0;
+}
+
+.btn-tiny {
+  background-color: #FFF;
+  color: #909090;
+  border: 0;
+}
+
+.form-control {
+  border-radius: 0;
+}
