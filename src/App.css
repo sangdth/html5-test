@@ -1,13 +1,13 @@
 .html5-test {
   color: #909090;
-  width: 912px;
+  width: 1006px;
 }
 
 .header {
   background-color: #ADB5BC;
-  height: 150px;
   padding: 32px;
   color: white;
+  width: 976px;
 }
 
 .header .logo {
@@ -18,27 +18,55 @@
 
 .header h1 {
   font-size: 22px;
-  margin-top: 5px;
+  margin-top: 0px;
+  padding-top: 5px;
+}
+
+.body {
+  background-color: #EEE;
+  width: 976px;
+  padding: 32px;
+}
+
+.body h2 {
+  font-size: 24px;
+  color: #666;
+  margin-bottom: 40px;
 }
 
 .add-form, .table-list {
-  background-color: #FFF;
   padding-top: 16px;
+  background-color: #FFF;
+}
+
+.add-form {
+  margin: 0 auto 15px;
+}
+
+.btn {
+  border: none;
+  border-radius: 0;
+  height: 40px;
+  font-weight: bold;
 }
 
 .btn-add-new {
-  background-color: #07F;
-  border: none;
-  color: #FFF;
-  border-radius: 0;
+  background-color: #EDEDED;
+  color: #666;
+  width: 110px;
 }
 
-.btn-tiny {
-  background-color: #FFF;
-  color: #909090;
-  border: 0;
+.btn-save {
+  background-color: #07F;
+  color: #FFF;
+}
+
+.btn-cancel {
+  background-color: #EDEDED;
+  color: #07F;
 }
 
 .form-control {
   border-radius: 0;
+  height: 40px;
 }
