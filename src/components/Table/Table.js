@@ -33,7 +33,11 @@ const Table = () => {
       <div className={styles.tbody}>
         {participants.map((p) => {
           if (p.id === edit) {
-            return (<Editor key="editorrr" data={p} />);
+            return (
+              <div key={p.id} className={styles.row}>
+                <Editor key="editorrr" data={p} />
+              </div>
+            );
           }
           return (
             <div key={p.id} className={styles.row}>
