@@ -1,20 +1,6 @@
 import React from 'react';
 
-class TableList extends React.Component {
-
-    render() {
-        var participants = [
-                {
-                    name: 'John Doe',
-                    email: 'john@doe.com',
-                    phone: '111111'
-                },
-                {
-                    name: 'Gorge Cloney',
-                    email: 'gorge@cloney.com',
-                    phone: '222222'
-                }
-        ];
+const Table = () => {
 
         return (
             <div className="table-list">
@@ -58,9 +44,7 @@ class TableList extends React.Component {
                     </tbody>
                 </table>
             </div>
-        )
-    }
-}
+  );
+};
 
-//module.exports = TableList;
-export default TableList;
+export default Table;
