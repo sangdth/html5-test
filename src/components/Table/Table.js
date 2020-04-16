@@ -1,4 +1,5 @@
 import React, {
+  useCallback,
   useState,
 } from 'react';
 import faker from 'faker';
@@ -17,52 +18,54 @@ const participants = Array.from({ length: 20 }, () => ({
 const Table = () => {
   const [edit, setEdit] = useState('');
 
-  console.log({ participants, edit });
+  const remove = useCallback(() => {
+  }, []);
 
   return (
     <div className={styles.wrapper}>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Full Name</th>
-            <th>Email Adress</th>
-            <th>Phone Number</th>
-            <th> </th>
-          </tr>
-        </thead>
+      <div className={styles.thead}>
+        <div className={[styles.th, styles.fullName].join(' ')}>Full Name</div>
+        <div className={[styles.th, styles.email].join(' ')}>Email</div>
+        <div className={[styles.th, styles.phone].join(' ')}>Phone</div>
+        <div className={[styles.th, styles.blank].join(' ')}>&nbsp;</div>
+      </div>
 
-        <tbody>
-          {participants.map((p) => {
-            if (p.id === edit) {
-              return 'editor';
-            }
-            return (
-              <tr key={p.id}>
-                <td className="col-md-3">{p.fullName}</td>
-                <td className="col-md-4">{p.email}</td>
-                <td className="col-md-3">{p.phone}</td>
-                <td className="col-md-2">
-                  <button
-                    type="button"
-                    className="btn btn-default btn-tiny"
-                    aria-label="Left Align"
-                    onClick={() => setEdit(p.id)}
-                  >
-                    <i className="material-icons">edit</i>
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-tiny"
-                    aria-label="Left Align"
-                  >
-                    <i className="material-icons">delete</i>
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className={styles.tbody}>
+        {participants.map((p) => {
+          if (p.id === edit) {
+            return (<Editor key="editorrr" data={p} />);
+          }
+          return (
+            <div key={p.id} className={styles.row}>
+              <div className={[styles.cell, styles.fullName].join(' ')}>
+                {p.fullName}
+              </div>
+              <div className={[styles.cell, styles.email].join(' ')}>
+                {p.email}
+              </div>
+              <div className={[styles.cell, styles.phone].join(' ')}>
+                {p.phone}
+              </div>
+              <div className={styles.cell}>
+                <button
+                  type="button"
+                  className={[styles.btn, styles.edit].join(' ')}
+                  onClick={() => setEdit(p.id)}
+                >
+                  <i className="material-icons">edit</i>
+                </button>
+                <button
+                  type="button"
+                  className={[styles.btn, styles.delete].join(' ')}
+                  onClick={() => remove(p.id)}
+                >
+                  <i className="material-icons">delete</i>
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

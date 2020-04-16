@@ -1,3 +1,75 @@
 .wrapper {
   background: #FFF;
+  margin-top: 10px;
+
+  .fullName {
+    width: 190px;
+  }
+  .email {
+    width: 270px;
+  }
+  .phone {
+    width: 190px;
+  }
+
+
+  .thead {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    border-bottom: 1px solid #EFEFEF;
+
+    .th {
+      color: #757575;
+      padding: 0 24px;
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .tbody {
+    display: flex;
+    flex-direction: column;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      border-bottom: 1px solid #EFEFEF;
+      box-sizing: border-box;
+
+      .cell {
+        color: #505050;
+        line-height: 24px;
+        font-size: 16px;
+        font-weight: 400;
+
+        &:first-child {
+          padding-left: 24px;
+        }
+        &:last-child {
+          padding-right: 24px;
+        }
+      }
+    }
+
+    .btn {
+      background: none;
+      border: none;
+      height: 30px;
+      width: 48px;
+      color: #999999;
+
+      &:hover {
+        cursor: pointer;
+      }
+      &.edit {
+      }
+      &.delete {
+      }
+    }
+  }
 }

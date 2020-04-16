@@ -4,7 +4,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  margin-bottom: 10px;
+  margin: 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #EFEFEF;
 
   .formGroup {
     .formControl {
@@ -13,10 +15,11 @@
       margin-right: 16px;
       font-size: 14px;
       background: #FAFAFA;
+      box-sizing: border-box;
       border: 1px solid #EEEEEE;
 
       &:nth-child(2) {
-        width: 250px;
+        width: 220px;
       }
 
       &:last-child {
@@ -29,9 +32,10 @@
     border: none;
     border-radius: 0;
     height: 40px;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 500;
     background-color: #EDEDED;
+    padding: 0 20px;
 
     &:hover {
       cursor: pointer;
@@ -46,6 +50,7 @@
     &.save {
       background-color: #07F;
       color: #FFF;
+      margin-left: 10px;
     }
   }
 
