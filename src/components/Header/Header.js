@@ -3,9 +3,11 @@ import logo from './logo.png';
 import styles from './Header.module.scss';
 
 const Header = () => (
-  <div className={styles.Header}>
-    <img src={logo} className={styles.logo} alt="logo" />
-    <h1>Nord Software</h1>
+  <div className={styles.wrapper}>
+    <div className={styles.title}>
+      <img src={logo} className={styles.logo} alt="logo" />
+      <h1>Nord Software</h1>
+    </div>
   </div>
 );
 

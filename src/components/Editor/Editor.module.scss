@@ -1,0 +1,58 @@
+.wrapper {
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  margin-bottom: 10px;
+
+  .formGroup {
+    .formControl {
+      height: 40px;
+      padding-left: 12px;
+      margin-right: 16px;
+      font-size: 14px;
+      background: #FAFAFA;
+      border: 1px solid #EEEEEE;
+
+      &:nth-child(2) {
+        width: 250px;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .btn {
+    border: none;
+    border-radius: 0;
+    height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #EDEDED;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.add {
+      background-color: #EDEDED;
+      color: #666;
+      width: 110px;
+    }
+
+    &.save {
+      background-color: #07F;
+      color: #FFF;
+    }
+  }
+
+  .formGroup {
+    .formControl {
+      border-radius: 0;
+      height: 40px;
+    }
+  }
+}

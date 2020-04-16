@@ -1,4 +1,5 @@
 import React, {
+  useCallback,
   useMemo,
   useState,
 } from 'react';
@@ -10,6 +11,8 @@ const Editor = (props) => {
   const {
     data,
     isNew,
+    onCancel,
+    onSubmit,
   } = props;
 
   const initialData = useMemo(() => {
@@ -21,43 +24,83 @@ const Editor = (props) => {
       email: '',
       phone: '',
     };
-  }, []);
+  }, [data]);
 
-  const [formData, setFormDate] = useState(initialData);
+  const [formData, setFormData] = useState(initialData);
+
+  const handleSetData = useCallback(
+    (e) => {
+      const { id, value } = e.target;
+      setFormData({ ...formData, [id]: value });
+    },
+    [formData],
+  );
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+      });
+    },
+    [],
+  );
 
   return (
-    <div className={styles.EditorWrapper}>
-      <form>
-        <div className="col-md-3">
-          <div className="form-group">
-            <label className="sr-only" htmlFor="inputName">Full name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="inputName"
-              placeholder="Full Name"
-            />
-          </div>
-        </div>
+    <div className={styles.wrapper}>
+      <div className={styles.formGroup}>
+        <input
+          type="text"
+          className={styles.formControl}
+          id="fullName"
+          placeholder="Full Name"
+          value={formData.fullName}
+          onChange={handleSetData}
+        />
 
-        <div className="col-md-4">
-          <div className="form-group">
-            <label className="sr-only" htmlFor="inputEmail">Email address</label>
-            <input type="email" className="form-control" id="inputEmail" placeholder="Email address" />
-          </div>
-        </div>
+        <input
+          type="text"
+          className={styles.formControl}
+          id="email"
+          placeholder="Email address"
+          value={formData.email}
+          onChange={handleSetData}
+        />
 
-        <div className="col-md-3">
-          <div className="form-group">
-            <label className="sr-only" htmlFor="inputPhone">Phone number</label>
-            <input type="number" className="form-control" id="inputPhone" placeholder="Phone number" />
-          </div>
-        </div>
+        <input
+          type="text"
+          className={styles.formControl}
+          id="phone"
+          placeholder="Phone number"
+          value={formData.phone}
+          onChange={handleSetData}
+        />
+      </div>
 
-        <div className="col-md-2">
-          <button type="submit" className="btn btn-primary btn-add-new pull-right">Add new</button>
-        </div>
-      </form>
+      <div className={styles.actions}>
+        {!isNew && (
+          <button
+            type="button"
+            className={styles.btn}
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+        )}
+
+        <button
+          type="submit"
+          className={[
+            styles.btn,
+            isNew ? styles.add : styles.save,
+          ].join(' ')}
+          onClick={handleSubmit}
+        >
+          {isNew ? 'Add new' : 'Save'}
+        </button>
+      </div>
     </div>
   );
 };
@@ -69,11 +112,15 @@ Editor.propTypes = {
     phone: PropTypes.string,
   }),
   isNew: PropTypes.bool,
+  onCancel: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 Editor.defaultProps = {
   data: undefined,
   isNew: false,
+  onCancel: () => {},
+  onSubmit: () => {},
 };
 
 export default Editor;

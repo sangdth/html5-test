@@ -6,81 +6,23 @@
   }
 }
 
-.AppContainer {
+.Container {
   font-family: Arial, Helvetica, sans-serif;
   color: #909090;
-  width: 1006px;
+  background: #EFEFEF;
+  width: 976px;
+  margin: 0 auto;
 
-  .AppBody {
+  .Content {
     display: flex;
+    width: 912px;
+    margin: 0 auto;
     flex-direction: column;
+
+    h2 {
+      font-size: 24px;
+      color: #666;
+      margin: 60px 0 40px 0;
+    }
   }
-}
-
-.header {
-  background-color: #ADB5BC;
-  padding: 32px;
-  color: white;
-  width: 976px;
-}
-
-.header .logo {
-  height: 32px;
-  float: left;
-  margin-right: 10px;
-}
-
-.header h1 {
-  font-size: 22px;
-  margin-top: 0px;
-  padding-top: 5px;
-}
-
-.body {
-  background-color: #EEE;
-  width: 976px;
-  padding: 32px;
-}
-
-.body h2 {
-  font-size: 24px;
-  color: #666;
-  margin-bottom: 40px;
-}
-
-.add-form, .table-list {
-  padding-top: 16px;
-  background-color: #FFF;
-}
-
-.add-form {
-  margin: 0 auto 15px;
-}
-
-.btn {
-  border: none;
-  border-radius: 0;
-  height: 40px;
-  font-weight: bold;
-}
-
-.btn-add-new {
-  background-color: #EDEDED;
-  color: #666;
-  width: 110px;
-}
-
-.btn-save {
-  background-color: #07F;
-  color: #FFF;
-}
-
-.btn-cancel {
-  background-color: #EDEDED;
-  color: #07F;
-}
-
-.form-control {
-  border-radius: 0;
-  height: 40px;
 }

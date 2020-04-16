@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
   Header,
@@ -7,20 +7,16 @@ import {
 
 import styles from './App.module.scss';
 
-class App extends Component {
-  render() {
-    return (
-      <div className={styles.AppContainer}>
-        <Header />
+const App = () => (
+  <div className={styles.Container}>
+    <Header />
 
-        <div className={styles.AppBody}>
-          <h2>List of participants</h2>
+    <div className={styles.Content}>
+      <h2>List of participants</h2>
 
-          <Editor />
-        </div>
-      </div>
-    );
-  }
-}
+      <Editor isNew />
+    </div>
+  </div>
+);
 
 export default App;
