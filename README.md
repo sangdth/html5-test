@@ -17,4 +17,4 @@ Go to `http://localhost:3000` (or the suggested port if 3000 is used).
 
 # Demo:
 
-This app is deployed to free node of Heroku: https://sang-html5-test.herokuapp.com/
+This app is deployed to free node of Netlify: https://festive-lamarr-34eb86.netlify.app/
