@@ -17,7 +17,7 @@ const fakeData = Array.from({ length: 20 }, () => ({
   id: faker.random.uuid(),
   fullName: faker.name.findName(),
   email: faker.internet.email(),
-  phone: faker.phone.phoneNumber(),
+  phone: faker.phone.phoneNumberFormat(2),
 }));
 
 // Make simple context to mimic the delete action
