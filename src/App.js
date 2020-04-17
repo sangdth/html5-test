@@ -22,7 +22,7 @@ const fakeData = Array.from({ length: 20 }, () => ({
 
 // Make simple context to mimic the delete action
 // because in real life we should not let the Table
-// has onEdit and onRemove props, it should be dumb
+// has onEdit and onRemove props, table should be dumb
 export const AppContext = React.createContext({});
 
 const App = () => {
