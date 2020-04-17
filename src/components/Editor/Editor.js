@@ -3,7 +3,9 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import c from 'classnames';
 import PropTypes from 'prop-types';
+import faker from 'faker';
 
 import styles from './Editor.module.scss';
 
@@ -27,6 +29,32 @@ const Editor = (props) => {
   }, [data]);
 
   const [formData, setFormData] = useState(initialData);
+  // const [focused, setFocused] = useState('');
+
+  // return true if invalid
+  const validate = useCallback((key) => {
+    const value = formData[key];
+    if (value.length === 0) {
+      return false;
+    }
+
+    switch (key) {
+      case 'fullName':
+        return value.length < 3;
+      case 'email':
+        return !/\S+@\S+\.\S+/.test(value);
+      case 'phone':
+        return !/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/.test(value);
+      default:
+        return false;
+    }
+  }, [formData]);
+
+  const isDisabled = useMemo(
+    () => ['fullName', 'email', 'phone'].some((k) => validate(k) || !formData[k]),
+    [validate, formData],
+  );
+
 
   const handleSetData = useCallback(
     (e) => {
@@ -39,13 +67,18 @@ const Editor = (props) => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
+      onSubmit({
+        ...formData,
+        id: isNew ? faker.random.uuid() : formData.id,
+      });
+
       setFormData({
         fullName: '',
         email: '',
         phone: '',
       });
     },
-    [],
+    [formData, onSubmit, isNew],
   );
 
   return (
@@ -53,7 +86,9 @@ const Editor = (props) => {
       <div className={styles.formGroup}>
         <input
           type="text"
-          className={styles.formControl}
+          className={c(styles.formControl, {
+            [styles.error]: validate('fullName'),
+          })}
           id="fullName"
           placeholder="Full Name"
           value={formData.fullName}
@@ -62,7 +97,9 @@ const Editor = (props) => {
 
         <input
           type="text"
-          className={styles.formControl}
+          className={c(styles.formControl, {
+            [styles.error]: validate('email'),
+          })}
           id="email"
           placeholder="Email address"
           value={formData.email}
@@ -71,7 +108,9 @@ const Editor = (props) => {
 
         <input
           type="text"
-          className={styles.formControl}
+          className={c(styles.formControl, {
+            [styles.error]: validate('phone'),
+          })}
           id="phone"
           placeholder="Phone number"
           value={formData.phone}
@@ -83,7 +122,7 @@ const Editor = (props) => {
         {!isNew && (
           <button
             type="button"
-            className={styles.btn}
+            className={c(styles.btn, styles.cancel)}
             onClick={onCancel}
           >
             Cancel
@@ -92,10 +131,12 @@ const Editor = (props) => {
 
         <button
           type="submit"
-          className={[
+          disabled={isDisabled}
+          className={c(
             styles.btn,
             isNew ? styles.add : styles.save,
-          ].join(' ')}
+            { [styles.disabled]: isDisabled },
+          )}
           onClick={handleSubmit}
         >
           {isNew ? 'Add new' : 'Save'}

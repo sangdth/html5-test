@@ -1,33 +1,56 @@
 import React, {
   useCallback,
+  useContext,
+  useEffect,
   useState,
 } from 'react';
-import faker from 'faker';
+import c from 'classnames';
+import PropTypes from 'prop-types';
 
 import Editor from '../Editor';
+import { AppContext } from '../../App';
 import styles from './Table.module.scss';
 
-// Generate fake data
-const participants = Array.from({ length: 20 }, () => ({
-  id: faker.random.uuid(),
-  fullName: faker.name.findName(),
-  email: faker.internet.email(),
-  phone: faker.phone.phoneNumber(),
-}));
-
-const Table = () => {
+const Table = (props) => {
+  const { data } = props;
+  const [participants, setParticipants] = useState(data);
   const [edit, setEdit] = useState('');
 
-  const remove = useCallback(() => {
-  }, []);
+  const { setData } = useContext(AppContext);
+
+  useEffect(() => {
+    if (data) {
+      setParticipants(data);
+    }
+  }, [data]);
+
+  const remove = useCallback((id) => {
+    const foundIndex = participants.findIndex((o) => o.id === id);
+    if (foundIndex > -1) {
+      const tmp = Array.from(participants);
+      tmp.splice(foundIndex, 1);
+      // setParticipants(tmp);
+      setData(tmp);
+    }
+  }, [participants, setData]);
+
+  const handleUpdate = useCallback((updated) => {
+    const foundIndex = participants.findIndex((o) => o.id === updated.id);
+    if (foundIndex > -1) {
+      const tmp = Array.from(participants);
+      tmp.splice(foundIndex, 1, updated);
+      setParticipants(tmp);
+    }
+    setEdit('');
+  }, [participants]);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.thead}>
-        <div className={[styles.th, styles.fullName].join(' ')}>Full Name</div>
-        <div className={[styles.th, styles.email].join(' ')}>Email</div>
-        <div className={[styles.th, styles.phone].join(' ')}>Phone</div>
-        <div className={[styles.th, styles.blank].join(' ')}>&nbsp;</div>
+        <div className={c(styles.th, styles.fullName)}>Full Name</div>
+        <div className={c(styles.th, styles.email)}>Email</div>
+        <div className={c(styles.th, styles.phone)}>Phone</div>
+        <div className={c(styles.th, styles.blank)}>&nbsp;</div>
       </div>
 
       <div className={styles.tbody}>
@@ -35,32 +58,37 @@ const Table = () => {
           if (p.id === edit) {
             return (
               <div key={p.id} className={styles.row}>
-                <Editor key="editorrr" data={p} />
+                <Editor
+                  key="editorrr"
+                  data={p}
+                  onCancel={() => setEdit('')}
+                  onSubmit={handleUpdate}
+                />
               </div>
             );
           }
           return (
             <div key={p.id} className={styles.row}>
-              <div className={[styles.cell, styles.fullName].join(' ')}>
+              <div className={c(styles.cell, styles.fullName)}>
                 {p.fullName}
               </div>
-              <div className={[styles.cell, styles.email].join(' ')}>
+              <div className={c(styles.cell, styles.email)}>
                 {p.email}
               </div>
-              <div className={[styles.cell, styles.phone].join(' ')}>
+              <div className={c(styles.cell, styles.phone)}>
                 {p.phone}
               </div>
               <div className={styles.cell}>
                 <button
                   type="button"
-                  className={[styles.btn, styles.edit].join(' ')}
+                  className={c(styles.btn, styles.edit)}
                   onClick={() => setEdit(p.id)}
                 >
                   <i className="material-icons">edit</i>
                 </button>
                 <button
                   type="button"
-                  className={[styles.btn, styles.delete].join(' ')}
+                  className={c(styles.btn, styles.delete)}
                   onClick={() => remove(p.id)}
                 >
                   <i className="material-icons">delete</i>
@@ -72,6 +100,15 @@ const Table = () => {
       </div>
     </div>
   );
+};
+
+Table.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    fullName: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
+  })).isRequired,
 };
 
 export default Table;

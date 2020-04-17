@@ -13,16 +13,25 @@
       height: 40px;
       padding-left: 12px;
       margin-right: 16px;
-      font-size: 14px;
+      font-size: 16px;
       background: #FAFAFA;
       box-sizing: border-box;
       border: 1px solid #EEEEEE;
 
+      &.error {
+        border-color: #FF0000;
+      }
+
+      &:first-child {
+        width: 180px;
+      }
+
       &:nth-child(2) {
-        width: 220px;
+        width: 260px;
       }
 
       &:last-child {
+        width: 190px;
         margin-right: 0;
       }
     }
@@ -41,10 +50,22 @@
       cursor: pointer;
     }
 
+
     &.add {
       background-color: #EDEDED;
       color: #666;
       width: 110px;
+    }
+
+    &.disabled {
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &.cancel {
+      background-color: #EDEDED;
+      color: #07f;
     }
 
     &.save {
