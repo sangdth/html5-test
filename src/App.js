@@ -32,8 +32,30 @@ const App = () => {
     setData([newObj, ...data]);
   }, [data]);
 
+  const sortData = useCallback((key, order) => {
+    const tmp = Array.from(data);
+    tmp.sort((a, b) => {
+      let tmpA = a;
+      let tmpB = b;
+      if (order === 'desc') {
+        tmpA = b;
+        tmpB = a;
+      }
+      const valueA = tmpA[key].toLowerCase();
+      const valueB = tmpB[key].toLowerCase();
+      if (valueA < valueB) {
+        return -1;
+      }
+      if (valueA > valueB) {
+        return 1;
+      }
+      return 0;
+    });
+    setData(tmp);
+  }, [data]);
+
   return (
-    <AppContext.Provider value={{ setData }}>
+    <AppContext.Provider value={{ setData, sortData }}>
       <div className={styles.Container}>
         <Header />
 

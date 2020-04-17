@@ -15,8 +15,9 @@ const Table = (props) => {
   const { data } = props;
   const [participants, setParticipants] = useState(data);
   const [edit, setEdit] = useState('');
+  const [sort, setSort] = useState([]);
 
-  const { setData } = useContext(AppContext);
+  const { setData, sortData } = useContext(AppContext);
 
   useEffect(() => {
     if (data) {
@@ -24,12 +25,17 @@ const Table = (props) => {
     }
   }, [data]);
 
+  const handleSort = useCallback((key) => {
+    const order = (sort[0] !== key || sort[1] === 'desc') ? 'asc' : 'desc';
+    setSort([key, order]);
+    sortData(key, order);
+  }, [sort, sortData]);
+
   const remove = useCallback((id) => {
     const foundIndex = participants.findIndex((o) => o.id === id);
     if (foundIndex > -1) {
       const tmp = Array.from(participants);
       tmp.splice(foundIndex, 1);
-      // setParticipants(tmp);
       setData(tmp);
     }
   }, [participants, setData]);
@@ -44,12 +50,47 @@ const Table = (props) => {
     setEdit('');
   }, [participants]);
 
+  const sortArrow = useCallback((key) => {
+    if (!sort[0] || sort[0] !== key) {
+      return '';
+    }
+    return sort[1] === 'asc' ? 'arrow_upward' : 'arrow_downward';
+  }, [sort]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.thead}>
-        <div className={c(styles.th, styles.fullName)}>Full Name</div>
-        <div className={c(styles.th, styles.email)}>Email</div>
-        <div className={c(styles.th, styles.phone)}>Phone</div>
+        <div
+          className={c(styles.th, styles.fullName)}
+          role="presentation"
+          onClick={() => handleSort('fullName')}
+        >
+          Full Name
+          <i className="material-icons">
+            {sortArrow('fullName')}
+          </i>
+        </div>
+        <div
+          className={c(styles.th, styles.email)}
+          role="presentation"
+          onClick={() => handleSort('email')}
+        >
+          Email
+          <i className="material-icons">
+            {sortArrow('email')}
+          </i>
+        </div>
+        <div
+          className={c(styles.th, styles.phone)}
+          role="presentation"
+          onClick={() => handleSort('phone')}
+        >
+          Phone
+          <i className="material-icons">
+            {sortArrow('phone')}
+          </i>
+        </div>
+
         <div className={c(styles.th, styles.blank)}>&nbsp;</div>
       </div>
 
@@ -73,7 +114,7 @@ const Table = (props) => {
                 {p.fullName}
               </div>
               <div className={c(styles.cell, styles.email)}>
-                {p.email}
+                {p.email.toLowerCase()}
               </div>
               <div className={c(styles.cell, styles.phone)}>
                 {p.phone}
